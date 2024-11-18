@@ -20,4 +20,12 @@ public class AccountService {
     public Account addAccount(Account account){
         return this.accountDAO.addAccount(account);
     }
+
+    public boolean exists (Account account){
+        return this.accountDAO.usernameExists(account);
+    }
+
+    public Account findAccount(Account account){
+        return this.accountDAO.getAccount(account);
+    }
 }
