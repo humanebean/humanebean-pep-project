@@ -8,6 +8,9 @@ import io.javalin.http.Context;
 import Model.Account;
 import DAO.AccountDAO;
 import Service.AccountService;
+import Model.Message;
+import DAO.MessageDAO;
+import Service.MessageService;
 
 /**
  * TODO: You will need to write your own endpoints and handlers for your controller. The endpoints you will need can be
@@ -16,9 +19,11 @@ import Service.AccountService;
  */
 public class SocialMediaController {
     AccountService accountService;
+    MessageService messageService;
 
     public SocialMediaController(){
         this.accountService = new AccountService();
+        this.messageService = new MessageService();
     }
     /**
      * In order for the test cases to work, you will need to write the endpoints in the startAPI() method, as the test
@@ -30,6 +35,7 @@ public class SocialMediaController {
         app.get("example-endpoint", this::exampleHandler);
         app.post("/register", this::registerHandler);
         app.post("/login",this::loginHandler);
+        app.post("/messages",this::messageHandler);
 
         return app;
     }
@@ -71,5 +77,18 @@ public class SocialMediaController {
             context.status(401);
         }
         
+    }
+
+    private void messageHandler(Context context) throws JsonProcessingException{
+        ObjectMapper mapper = new ObjectMapper();
+        Message message = mapper.readValue(context.body(), Message.class);
+        Message addedMessage = messageService.addMessage(message);
+        if(addedMessage == null){
+            context.status(400);
+        }
+        else{
+            context.json(mapper.writeValueAsString(addedMessage));
+            context.status(200);
+        }
     }
 }

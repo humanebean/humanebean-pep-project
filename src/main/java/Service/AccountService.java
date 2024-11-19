@@ -25,7 +25,13 @@ public class AccountService {
         return this.accountDAO.usernameExists(account);
     }
 
+    public boolean exists (Integer ID){
+        Account account = this.accountDAO.getAccount(ID);
+        return this.accountDAO.usernameExists(account);
+    }
+
     public Account findAccount(Account account){
         return this.accountDAO.getAccount(account);
     }
+
 }
