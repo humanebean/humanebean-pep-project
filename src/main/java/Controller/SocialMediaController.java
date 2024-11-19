@@ -38,6 +38,7 @@ public class SocialMediaController {
         app.post("/login",this::loginHandler);
         app.post("/messages",this::messageHandler);
         app.get("/messages",this::allMessagesHandler);
+        app.get("/messages/{message_id}",this::getMessageHandler);
 
         return app;
     }
@@ -97,6 +98,15 @@ public class SocialMediaController {
     private void allMessagesHandler(Context context) throws JsonProcessingException{
         List<Message> messages = messageService.getAllMessages();
         context.json(messages);
+        context.status(200);
+    }
+
+    private void getMessageHandler(Context context) throws JsonProcessingException{
+        String ID = context.pathParam("message_id");
+        Message foundMessage = messageService.findMessage(ID);
+        if(foundMessage!=null){
+            context.json(foundMessage);
+        }
         context.status(200);
     }
 

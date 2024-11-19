@@ -22,4 +22,13 @@ public class MessageService {
         }
         return messageDAO.addMessage(message);
     }
+
+    public Message findMessage(Message message){
+        return this.messageDAO.getMessage(message);
+    }
+
+    public Message findMessage(String ID){
+        return this.messageDAO.getMessage(Integer.parseInt(ID));
+    }
+
 }
