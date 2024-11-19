@@ -39,4 +39,8 @@ public class MessageService {
         return this.messageDAO.updateMessage(Integer.parseInt(ID),messageBody);
     }
 
+    public List<Message> getAllMessagesWithID(Integer ID){
+        return this.messageDAO.getAllMessagesWithID(ID);
+    }
+
 }
