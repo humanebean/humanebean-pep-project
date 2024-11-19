@@ -31,4 +31,12 @@ public class MessageService {
         return this.messageDAO.getMessage(Integer.parseInt(ID));
     }
 
+    public Message deleteMessage(String ID){
+        return this.messageDAO.deleteMessage(Integer.parseInt(ID));
+    }
+
+    public Message updateMessage(String ID, String messageBody){
+        return this.messageDAO.updateMessage(Integer.parseInt(ID),messageBody);
+    }
+
 }

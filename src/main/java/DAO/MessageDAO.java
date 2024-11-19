@@ -5,6 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class MessageDAO {
 
     public List<Message> getAllMessages(){
@@ -80,6 +81,45 @@ public class MessageDAO {
         }
         return null;
     }
+
+    public Message deleteMessage(Integer ID){
+        Message message = getMessage(ID);
+        if(message==null){
+            return null;
+        }
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            String sql = "DELETE from Message where message_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, ID);
+            preparedStatement.executeUpdate();
+            return message;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public Message updateMessage(Integer ID, String messageBody){
+        Message message = getMessage(ID);
+        if(message==null){
+            return null;
+        }
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            String sql = "UPDATE Message set message_text = ? where message_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, messageBody);
+            preparedStatement.setInt(2, ID);
+            preparedStatement.executeUpdate();
+            message.setMessage_text(messageBody);
+            return message;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
 
 
 }
