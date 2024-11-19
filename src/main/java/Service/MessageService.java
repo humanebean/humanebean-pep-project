@@ -12,6 +12,9 @@ public class MessageService {
         this.accountService = new AccountService();
     }
 
+    public List<Message> getAllMessages(){
+        return this.messageDAO.getAllMessages();
+    }
     public Message addMessage(Message message){
 
         if(message.getMessage_text()=="" || message.getMessage_text().length()>=255 || !accountService.exists(message.posted_by)){

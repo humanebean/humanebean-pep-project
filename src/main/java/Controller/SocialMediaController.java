@@ -11,7 +11,8 @@ import Service.AccountService;
 import Model.Message;
 import DAO.MessageDAO;
 import Service.MessageService;
-
+import java.util.List;
+ 
 /**
  * TODO: You will need to write your own endpoints and handlers for your controller. The endpoints you will need can be
  * found in readme.md as well as the test cases. You should
@@ -36,6 +37,7 @@ public class SocialMediaController {
         app.post("/register", this::registerHandler);
         app.post("/login",this::loginHandler);
         app.post("/messages",this::messageHandler);
+        app.get("/messages",this::allMessagesHandler);
 
         return app;
     }
@@ -91,4 +93,11 @@ public class SocialMediaController {
             context.status(200);
         }
     }
+
+    private void allMessagesHandler(Context context) throws JsonProcessingException{
+        List<Message> messages = messageService.getAllMessages();
+        context.json(messages);
+        context.status(200);
+    }
+
 }
