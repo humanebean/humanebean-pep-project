@@ -136,6 +136,7 @@ public class SocialMediaController {
         }
     }
 
+
     private void getAllMessagesHandler(Context context) throws JsonProcessingException{
         List<Message> messages = messageService.getAllMessagesWithID(Integer.parseInt(context.pathParam("account_id")));
         context.json(messages);
